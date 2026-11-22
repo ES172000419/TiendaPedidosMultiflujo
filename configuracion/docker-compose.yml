@@ -1,0 +1,28 @@
+﻿services:
+  db:
+    image: postgres:15
+    container_name: postgres_pedidos
+    restart: always
+    environment:
+      POSTGRES_DB: pedidos
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: unadm
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin_pedidos
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@unadm.com
+      PGADMIN_DEFAULT_PASSWORD: unadm
+    ports:
+      - "80:80"
+    depends_on:
+      - db
+
+volumes:
+  postgres_data:
